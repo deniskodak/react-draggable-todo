@@ -1,2 +1,2 @@
-# react-draggable-todo
-Infinity todo tree list
+# React draggable todo list.
+Todo list presented as node tree.

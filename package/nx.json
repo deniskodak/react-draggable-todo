@@ -54,6 +54,5 @@
       }
     }
   },
-  "defaultProject": "myreactapp",
-  "nxCloudAccessToken": "YWEwZmYwOTctNzIyYi00YzRiLWJlZWYtM2VlOWE2ZTU2OGY4fHJlYWQtd3JpdGU="
+  "defaultProject": "myreactapp"
 }

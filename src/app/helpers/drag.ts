@@ -21,13 +21,14 @@ export default function dragElement(elmnt: HTMLElement) {
     if (e instanceof MouseEvent) {
       e.preventDefault();
     }
+
     const { clientX, clientY } = getMousePositions(e);
 
     pos3 = clientX;
     pos4 = clientY;
     document.onmouseup = closeDragElement;
-    document.onmousemove = elementDrag;
     document.ontouchend = closeDragElement;
+    document.onmousemove = elementDrag;
     document.ontouchmove = elementDrag;
   }
 
@@ -35,7 +36,12 @@ export default function dragElement(elmnt: HTMLElement) {
     e = e || window.event;
     if (e instanceof MouseEvent) {
       e.preventDefault();
+    } else {
+      if ((e.target as HTMLElement).id === 'category-list') {
+        return;
+      }
     }
+
     const { clientX, clientY } = getMousePositions(e);
 
     pos1 = pos3 - clientX;

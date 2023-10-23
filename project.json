@@ -3,13 +3,14 @@
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "./src",
   "projectType": "application",
+  "baseHref": "https://deniskodak.github.io/react-draggable-todo/",
   "targets": {
     "build": {
       "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/myreactapp"
+        "outputPath": "dist"
       },
       "configurations": {
         "development": {

@@ -1,29 +1,47 @@
 const paddingFix = 12;
 
+const getMousePositions = (event: MouseEvent | TouchEvent) => {
+  const clientX =
+    event instanceof MouseEvent ? event.clientX : event.touches[0].clientX;
+  const clientY =
+    event instanceof MouseEvent ? event.clientY : event.touches[0].clientY;
+  return { clientX, clientY };
+};
+
 export default function dragElement(elmnt: HTMLElement) {
   let pos1 = 0,
     pos2 = 0,
     pos3 = 0,
     pos4 = 0;
   elmnt.onmousedown = dragMouseDown;
+  elmnt.ontouchstart = dragMouseDown;
 
-  function dragMouseDown(e: MouseEvent) {
+  function dragMouseDown(e: MouseEvent | TouchEvent) {
     e = e || window.event;
-    e.preventDefault();
-    pos3 = e.clientX;
-    pos4 = e.clientY;
+    if (e instanceof MouseEvent) {
+      e.preventDefault();
+    }
+    const { clientX, clientY } = getMousePositions(e);
+
+    pos3 = clientX;
+    pos4 = clientY;
     document.onmouseup = closeDragElement;
     document.onmousemove = elementDrag;
+    document.ontouchend = closeDragElement;
+    document.ontouchmove = elementDrag;
   }
 
-  function elementDrag(e: MouseEvent) {
+  function elementDrag(e: MouseEvent | TouchEvent) {
     e = e || window.event;
-    e.preventDefault();
+    if (e instanceof MouseEvent) {
+      e.preventDefault();
+    }
+    const { clientX, clientY } = getMousePositions(e);
 
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
+    pos1 = pos3 - clientX;
+    pos2 = pos4 - clientY;
+    pos3 = clientX;
+    pos4 = clientY;
     const newTop = elmnt.offsetTop - pos2;
     const newLeft = elmnt.offsetLeft - pos1;
 
@@ -37,6 +55,8 @@ export default function dragElement(elmnt: HTMLElement) {
   function closeDragElement() {
     document.onmouseup = null;
     document.onmousemove = null;
+    document.ontouchend = null;
+    document.ontouchend = null;
   }
 }
 
